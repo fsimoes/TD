@@ -31,6 +31,7 @@ public class WaveManager : MonoBehaviour
                 activatedWaves.Add(enemyWave);
                 spawnCounter = 0f;
                 GameManager.Instance.waveNumber++;
+                UIManager.Instance.ShowCenterWindow("Wave " + GameManager.Instance.waveNumber);
                 break;
             }
         }

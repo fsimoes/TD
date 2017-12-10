@@ -36,10 +36,12 @@ public class Enemy : MonoBehaviour
     public float health = 100f;
     public float moveSpeed = 3f;
     public int goldDrop = 10;
-
     public int pathIndex = 0;
-
     private int wayPointIndex = 0;
+    public float timeEnemyStaysFrozenInSeconds = 2f;
+    public bool frozen;
+    private float freezeTimer;
+
     void Start()
     {
         EnemyManager.Instance.RegisterEnemy(this);
@@ -88,8 +90,30 @@ public class Enemy : MonoBehaviour
         {
             OnGotToLastWayPoint();
         }
-    }
 
+        if (frozen)
+        {
+            freezeTimer += Time.deltaTime;
+            if (freezeTimer >= timeEnemyStaysFrozenInSeconds)
+            {
+                Defrost();
+            }
+        }
+    }
+    public void Freeze()
+    {
+        if (!frozen)
+        {
+            frozen = true;
+            moveSpeed /= 2;
+        }
+    }
+    void Defrost()
+    {
+        freezeTimer = 0f;
+        frozen = false;
+        moveSpeed *= 2;
+    }
     private void UpdateMovement()
     {
         Vector3 targetPosition = WayPointManager.Instance.Paths[pathIndex].WayPoints[wayPointIndex].position;
