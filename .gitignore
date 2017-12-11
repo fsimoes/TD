@@ -35,6 +35,7 @@ LightingData.asset.meta
 [Dd]ebug*/
 [Rr]elease*/
 Builds/
+Build/
 ipch/
 Library/
 obj/
